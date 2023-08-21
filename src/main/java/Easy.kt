@@ -1,25 +1,24 @@
 class Easy {
-    fun alterMerge(w1: String, w2: String): String{
+    fun alterMerge(word1: String, word2: String): String{
         var finalString = ""
-        var temp = ""
-        if(w1.length > w2.length)
-        for (i in w1.indices){
-            for (j in w2.indices){
-                if(i == j){
-                    finalString += w1[i].toString() + w2[j].toString()
-                    break
-                }
+        val mainString = StringBuilder(if (word1.length > word2.length ) word1 else word2)
+        val idx = if (word1.length < word2.length ) word1.length else word2.length
+        for (i in 0 until idx) {
+            finalString += word1[i].toString() + word2[i].toString()
+            if(mainString.isNotEmpty()){
+                mainString.deleteCharAt(0)
             }
         }
+        finalString += mainString
         return finalString
     }
 }
 
 fun main() {
-    var w1 = "abc"
-    var w2 = "pqr"
-    var easy = Easy()
+    val w1 = "ab"
+    val w2 = "pqrs"
+    val easy = Easy()
 
-    println("${easy.alterMerge(w1, w2)}")
+    println(easy.alterMerge(w1, w2))
 }
 
