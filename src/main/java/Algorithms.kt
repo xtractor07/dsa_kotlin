@@ -1,5 +1,4 @@
 import kotlin.system.measureTimeMillis
-import kotlin.time.measureTime
 
 fun binarySearch(arr: IntArray, target: Int): Int{
     var low = 0
@@ -85,12 +84,11 @@ fun sortArray(arr: IntArray){
 
 fun main() {
     var nums = intArrayOf(2, 3, 5, 7, 8, 10, 12, 15, 18, 20)
-    val unsortedArray: IntArray = (1..100000000).shuffled().toIntArray()
-//    val unsortedArrayCopy: IntArray = (1..100000).shuffled().toIntArray()
+    val unsortedArray: IntArray = (1..10000).shuffled().toIntArray()
+    val unsortedArrayCopy: IntArray = (1..10000).shuffled().toIntArray()
     val mergeSortTime = measureTimeMillis { mergeSort(unsortedArray, 0, unsortedArray.size - 1) }
-//    val normalSortTime = measureTimeMillis { sortArray(unsortedArrayCopy) }
-//    println("MERGE-SORT: $mergeSortTime\n" +
-//            "BRUTE-SORT: $normalSortTime")
+    val normalSortTime = measureTimeMillis { sortArray(unsortedArrayCopy) }
+    println("MERGE-SORT: $mergeSortTime\n" +
+            "BRUTE-SORT: $normalSortTime")
 
-    println("MERGE-SORT: $mergeSortTime\n")
 }
