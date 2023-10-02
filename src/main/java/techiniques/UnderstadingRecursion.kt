@@ -1,4 +1,6 @@
-import java.util.Stack
+package techiniques
+
+import dataStructures.CustomStack
 
 fun countDown(n: Int) {
     if(n <= 0) {  /**Base condition: n <= 0*/

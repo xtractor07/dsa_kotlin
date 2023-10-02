@@ -1,3 +1,5 @@
+package algorithms
+
 import kotlin.system.measureTimeMillis
 
 fun binarySearch(arr: IntArray, target: Int): Int{

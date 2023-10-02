@@ -1,3 +1,5 @@
+package dataStructures.interfaces
+
 interface IQueue<T> {
     fun isEmpty(): Boolean
     fun enqueue(item: T)

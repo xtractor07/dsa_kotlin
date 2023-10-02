@@ -1,3 +1,5 @@
+import dataStructures.CustomStack
+
 class StackProblems {
     fun balancedParentheses(s: String): Boolean {
         val customStack = CustomStack<Char>()

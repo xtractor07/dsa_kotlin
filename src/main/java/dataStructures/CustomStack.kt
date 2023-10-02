@@ -1,3 +1,7 @@
+package dataStructures
+
+import dataStructures.interfaces.IStack
+
 class CustomStack<T> : IStack<T> {
 
     private val elements: MutableList<T> = mutableListOf()

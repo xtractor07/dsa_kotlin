@@ -1,3 +1,5 @@
+package leetCodeSolutioning
+
 class LeetCodeStreak {
 
     fun reverseWords(s: String): String {

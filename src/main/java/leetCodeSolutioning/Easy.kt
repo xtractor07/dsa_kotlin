@@ -1,6 +1,6 @@
+package leetCodeSolutioning
+
 import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.system.exitProcess
 
 class Easy {
     fun alterMerge(word1: String, word2: String): String{

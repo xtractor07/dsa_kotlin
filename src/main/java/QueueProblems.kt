@@ -1,6 +1,8 @@
+import dataStructures.CustomQueue
+
 class QueueProblems {
 
-    fun reverseFirstKElements(testQueue: CustomQueue<Int>, k: Int): CustomQueue<Int>{
+    fun reverseFirstKElements(testQueue: CustomQueue<Int>, k: Int): CustomQueue<Int> {
         val tempList = mutableListOf<Int>()
         for(i in 0 until k) {
             testQueue.dequeue()?.let { tempList.add(it) }

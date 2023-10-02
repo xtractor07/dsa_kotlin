@@ -1,3 +1,5 @@
+package dataStructures.interfaces
+
 interface IStack<T> {
     fun isEmpty(): Boolean
     fun push(item: T)

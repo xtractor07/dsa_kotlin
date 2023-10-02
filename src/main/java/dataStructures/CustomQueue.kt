@@ -1,3 +1,7 @@
+package dataStructures
+
+import dataStructures.interfaces.IQueue
+
 class CustomQueue<T>: IQueue<T> {
     private val storage = arrayListOf<T>()
     override fun isEmpty(): Boolean {

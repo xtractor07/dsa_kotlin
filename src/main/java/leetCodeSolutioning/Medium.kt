@@ -1,3 +1,5 @@
+package leetCodeSolutioning
+
 class Medium {
 
     fun binarySearch(arr: IntArray, target: Int): Boolean {
