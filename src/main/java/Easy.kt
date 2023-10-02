@@ -1,3 +1,5 @@
+import kotlin.math.abs
+import kotlin.math.pow
 import kotlin.system.exitProcess
 
 class Easy {
@@ -221,22 +223,234 @@ class Easy {
         }
     }
 
+    fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int): Unit {
+        var p1 = m - 1
+        var p2 = n - 1
+
+        var p = m + n - 1
+
+        while (p1 >= 0 && p2 >= 0){
+            if (nums1[p1] < nums2[p2]){
+                nums1[p] = nums2[p2]
+                p2--
+            } else {
+                nums1[p] = nums1[p1]
+                p1--
+            }
+            p -= 1
+        }
+
+        while(p2 >= 0) {
+            nums1[p] = nums2[p2]
+            p--
+            p2--
+        }
+    }
+
+    fun removeElement(arr: IntArray, `element`: Int): Int {
+        var length = arr.size
+        var i = 0
+        while (i < length) {
+            if (arr[i] == element) {
+                // Shift all elements from (i+1) to (length - 1)
+                for (j in i until length - 1) {
+                    arr[j] = arr[j + 1]
+                }
+                length--  // Reduce effective length of array
+            } else {
+                i++  // Only increase i if no shifting was performed
+            }
+        }
+        return length
+    }
+
+    fun majorityElement(nums: IntArray): Int {
+        var frequencyMap = mutableMapOf<Int, Int>()
+        var count = 1
+        for (idx in nums.indices){
+            if(nums[idx] in frequencyMap) {
+                count ++
+                frequencyMap[nums[idx]] = count
+            } else {
+                count = 1
+                frequencyMap[nums[idx]] = count
+            }
+        }
+        var max = 0
+        for ((key, value) in frequencyMap) {
+            if(value > max) {
+                max = key
+            }
+        }
+        return max
+    }
+    fun findDuplicate(nums: IntArray): Int {
+        var frequencyMap = mutableMapOf<Int, Int>()
+        var count = 1
+        var result = -1
+        for (idx in nums.indices) {
+            if(nums[idx] in frequencyMap) {
+                count += 1
+                frequencyMap[nums[idx]] = count
+            } else {
+                count = 1
+                frequencyMap[nums[idx]] = count
+            }
+        }
+
+        for ((key, value) in frequencyMap) {
+            if(value == 2) {
+                result = key
+            }
+        }
+
+        return result
+    }
+
+    fun arraySign(nums: IntArray): Int {
+        return if(0 !in nums) {
+            var negativeCount = 0
+            nums.sort()
+            for (idx in nums.indices) {
+                if (nums[idx] < 0) {
+                    negativeCount++
+                } else {
+                    break
+                }
+            }
+            if (negativeCount % 2 == 0) 1 else -1
+        } else {
+            0
+        }
+    }
+
+    fun findDifference(nums1: IntArray, nums2: IntArray): List<List<Int>> {
+        val answer = mutableListOf<List<Int>>()
+        var tempList = mutableListOf<Int>()
+        for (i in nums1.indices) {
+            if(nums1[i] !in nums2) {
+                tempList.add(nums1[i])
+            }
+        }
+        answer.add(tempList.distinct())
+        tempList = mutableListOf()
+        for (j in nums2.indices) {
+            if(nums2[j] !in nums1) {
+                tempList.add(nums2[j])
+            }
+        }
+        answer.add(tempList.distinct())
+
+        return answer
+    }
+
+    fun diagonalSum(mat: Array<IntArray>): Int {
+        val n = mat.size
+        var sum = 0
+        for (idx in 0 until n) {
+            sum += if(idx == n - 1 - idx){
+                mat[idx][idx]
+            } else {
+                mat[idx][idx] + mat[idx][n-1-idx]
+            }
+        }
+        return sum
+    }
+
+    fun checkStraightLine(coordinates: Array<IntArray>): Boolean {
+        if (coordinates.size < 3) return true
+        val (x0, y0) = coordinates[0]
+        val (x1, y1) = coordinates[1]
+
+        val dx = x1 - x0
+        val dy = y1 - y0
+        for (element in coordinates) {
+            val (xi, yi) = element
+            if (dx * (yi - y0) != dy * (xi - x0)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    fun mergeSort(arr: IntArray, low: Int, high: Int): Unit {
+        if (low < high) {
+            val mid = low + (high - low) / 2
+            mergeSort(arr, low, mid)
+            mergeSort(arr, mid + 1, high)
+            merge(arr, low, mid, high)
+        }
+    }
+
+    fun merge(arr: IntArray, low: Int, mid: Int, high: Int) {
+        val n1 = mid - low + 1
+        val n2 = high - mid
+
+        val left = IntArray(n1)
+        val right = IntArray(n2)
+
+        for (i in 0 until n1){
+            left[i] = arr[low + i]
+        }
+        for (j in 0 until n2) {
+            right[j] = arr[mid + 1 + j]
+        }
+
+        var i = 0
+        var j = 0
+        var k = low
+
+        while (i < n1 && j < n2) {
+            if (left[i] <= right[j]) {
+                arr[k] = left[i]
+                i++
+            } else {
+                arr[k] = right[j]
+                j++
+            }
+            k++
+        }
+
+        while(i < n1) {
+            arr[k] = left[i]
+            i++
+            k++
+        }
+        while (j < n2) {
+            arr[k] = right[j]
+            j++
+            k++
+        }
+    }
+
+    fun sortedSquares(nums: IntArray): IntArray {
+        var low = 0
+        var high = nums.size - 1
+        var index = nums.size - 1
+        var result = IntArray(nums.size)
+
+        while (low <= high) {
+            if (abs(nums[low]) < abs(nums[high])) {
+                result[index] = nums[high] * nums[high]
+                high--
+            } else {
+                result[index] = nums[low] * nums[low]
+                low++
+            }
+            index--
+        }
+
+        return result
+    }
 }
 
 fun main() {
-    val w1 = "ab"
-    val w2 = "pqrs"
-    val str1 = "LEET"
-    val str2 = "CODE"
-    val candies = listOf(4,2,1,1,2)
-    val extraCandies = 1
-    val testString = "  hello world  "
-    val flowerbed = listOf(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)
-    val n = 8
-    var nums = intArrayOf(0,1,0,3,12)
+    val input1 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(5, 6), intArrayOf(6, 7))
+    val input2 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 5))
+    val unsortedArray: IntArray = (1..100).shuffled().toIntArray()
+    val input3 = intArrayOf(-4, 0, 3, 10, -1).toList().shuffled().toIntArray()
     val easy = Easy()
-    var chars = charArrayOf('a','a','b','b','c','c','c')
-
-    println(easy.moveZeroes(nums))
+    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
+    println(unsortedArray.joinToString(", "))
 }
 
