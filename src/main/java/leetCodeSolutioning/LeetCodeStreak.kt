@@ -32,11 +32,33 @@ class LeetCodeStreak {
         return countA > countB
     }
 
+    fun numIdenticalPairs(nums: IntArray): Int {
+        var count = 0
+        for (i in nums.indices) {
+            for (j in nums.indices) {
+                if(nums[i] == nums[j] && i < j) {
+                    count++
+                }
+            }
+        }
+        return count
+    }
+
+    fun numIdenticalPairsOptimised(nums: IntArray): Int {
+        val map = mutableMapOf<Int, Int>()
+        var count = 0
+        for (num in nums) {
+            val freq = map.getOrDefault(num, 0)
+            count += freq
+            map[num] = freq + 1
+        }
+        return count
+    }
 }
 
 
 fun main() {
     val leetCodeStreak = LeetCodeStreak()
-    var testString = "ABBBBBBBAAA"
-    println(leetCodeStreak.winnerOfGame(testString))
+    var nums = intArrayOf(1, 2, 3, 1, 1, 3)
+    println(leetCodeStreak.numIdenticalPairsOptimised(nums))
 }
