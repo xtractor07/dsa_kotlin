@@ -1,6 +1,6 @@
 package dataStructures.interfaces
 
-interface ILinkedList<T> {
+interface ISinglyLinkedList<T> {
 
     fun insert(data: T)
     fun delete(data: T)

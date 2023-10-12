@@ -1,11 +1,11 @@
 package dataStructures
 
-import dataStructures.interfaces.ILinkedList
+import dataStructures.interfaces.ISinglyLinkedList
 
 class Node<T>(var data: T) {
     var next: Node<T>? = null
 }
-class CustomLinkedList<T>: ILinkedList<T> {
+class CustomSinglyLinkedList<T>: ISinglyLinkedList<T> {
     private var head: Node<T>? = null
     override fun insert(data: T) {
         val newNode = Node(data)
@@ -73,7 +73,7 @@ class CustomLinkedList<T>: ILinkedList<T> {
 
 fun main() {
 
-    val customLinkedList = CustomLinkedList<Int>()
+    val customLinkedList = CustomSinglyLinkedList<Int>()
     customLinkedList.apply {
         insert(1)
         insert(2)
