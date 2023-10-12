@@ -65,23 +65,29 @@ fun <T> insertAtBottom(stack: CustomStack<T>, item: T) {
     stack.push(temp)
 }
 
-fun rotateArray(arr: IntArray, d:Int): IntArray {
-    val n = arr.size
-    val temp = IntArray(d)
-
-    for (i in 0 until d) {
-        temp[i] = arr[i]
+fun printNto1(a: Int): Int {
+    if (a == 1) {
+        println(1)
+        return 1
     }
-    for (i in d until n) {
-        arr[i - d] = arr[i]
-    }
-    for (i in 0 until d) {
-        arr[n - d + i] = temp[i]
-    }
-
-    return arr
+    println(a)
+    return printNto1(a - 1)
 }
+
+fun print1ToN(a: Int, b: Int) {
+    if (a == b) {
+        println(a)
+        return
+    }
+    println(a)
+    print1ToN(a + 1, b)
+}
+
+fun sumN(n: Int): Int{
+    return if (n == 1) 1 else n + sumN(n - 1)
+}
+
 fun main () {
-    val array = intArrayOf(1, 2, 3, 4, 5)
-    println(rotateArray(array, 2).joinToString(", "))
+    val n = readln().toInt()
+    print("SUM : ${sumN(n)}")
 }
