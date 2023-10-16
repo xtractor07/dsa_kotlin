@@ -87,7 +87,40 @@ fun sumN(n: Int): Int{
     return if (n == 1) 1 else n + sumN(n - 1)
 }
 
+fun fibSeries(n: Int) {
+    var li = IntArray(n) {if (it % 2 == 0) 0 else 1}
+    when (n) {
+        0 -> println(0)
+        1 -> println(li)
+        else -> {
+            for (i in 2 until n) {
+                li[i] = (i - 1) + (i - 2)
+            }
+            println(li.joinToString(", "))
+        }
+    }
+}
+
+fun swap(arr: IntArray, low: Int, high: Int) {
+    val temp = arr[low]
+    arr[low] = arr[high]
+    arr[high] = temp
+}
+
+fun reverseArr(arr: IntArray, low: Int, high: Int) {
+    if (low > high) {
+        return
+    }
+    swap(arr, low, high)
+    reverseArr(arr, low + 1, high - 1)
+}
+
 fun main () {
-    val n = readln().toInt()
-    print("SUM : ${sumN(n)}")
+//    val n = readln().toInt()
+//    print("SUM : ${sumN(n)}")
+//    fibSeries(n)
+    var arr = (1..15).sorted().toIntArray()
+    println(arr.joinToString(", "))
+    reverseArr(arr, 0, arr.size - 1)
+    println(arr.joinToString(", "))
 }

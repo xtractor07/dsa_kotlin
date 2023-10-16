@@ -69,6 +69,43 @@ class CustomSinglyLinkedList<T>: ISinglyLinkedList<T> {
         }
         return size
     }
+
+    fun reverseLl() {
+        var current = head
+        var previous: Node<T>? = null
+        while (current != null){
+            val nextBkp = current.next  // Save the next node
+            current.next = previous  // Reverse the link
+            previous = current  // Move one step forward in the list
+            current = nextBkp
+        }
+        head = previous
+    }
+
+    fun recursiveReverse(head: Node<T>?): Node<T>? {
+        return if (head?.next == null) {
+            return head
+        } else {
+            val nextNode = recursiveReverse(head?.next)
+            head?.next?.next = head?.next
+            head.next = null
+            return nextNode
+        }
+    }
+}
+
+fun hasCycle(head: Node<Int>?): Boolean {
+    var slowPointer = head
+    var fastPointer = head?.next
+
+    while(fastPointer?.next != null) {
+        if (slowPointer == fastPointer) {
+            return true
+        }
+        slowPointer = slowPointer?.next
+        fastPointer = fastPointer.next?.next
+    }
+    return false
 }
 
 fun main() {
@@ -80,9 +117,11 @@ fun main() {
         insert(7)
         insert(3)
         insert(4)
-        println("RESULT : ${search(10)}")
-        insert(10)
-        println("RESULT : ${search(10)}")
+
+        display()
+        reverseLl()
+        display()
     }
+    var li = mutableListOf<Int>(1, 2, 3)
 }
 

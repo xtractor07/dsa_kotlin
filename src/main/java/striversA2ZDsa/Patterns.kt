@@ -1,4 +1,4 @@
-package striversA2Zdsa
+package striversA2ZDsa
 
 class Patterns {
     fun normalPattern(n: Int) {

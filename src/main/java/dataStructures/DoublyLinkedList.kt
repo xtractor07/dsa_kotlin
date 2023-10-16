@@ -73,6 +73,20 @@ class DoublyLinkedList<T>: IDoublyLinkedList<T> {
         }
         println()
     }
+
+    fun reverse() {
+        var current = head
+        var temp: DNode<T>? = null
+        while (current != null) {
+            temp = current.previous
+            current.previous = current.next
+            current.next = temp
+            current = current.previous
+        }
+        if (temp != null) {
+            head = temp.previous
+        }
+    }
 }
 
 fun main() {
@@ -83,6 +97,8 @@ fun main() {
         insertLast(3)
         insertLast(4)
         insertLast(5)
+        traverse()
+        dll.reverse()
         traverse()
     }
 }
