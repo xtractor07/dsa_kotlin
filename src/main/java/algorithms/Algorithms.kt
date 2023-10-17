@@ -132,12 +132,28 @@ fun sortArray(arr: IntArray){
     }
 }
 
+fun selectionSort(arr: IntArray) {
+    for (idx in arr.indices) {
+        var min = arr[idx]
+        var minIdx = idx
+        for (i in idx + 1 until arr.size) {
+            if (arr[i] < min) {
+                min = arr[i]
+                minIdx = i
+            }
+        }
+        val temp = arr[idx]
+        arr[idx] = arr[minIdx]
+        arr[minIdx] = temp
+    }
+}
+
 fun main() {
-    var nums = intArrayOf(2, 3, 5, 7, 8, 10, 12, 15, 18, 20)
+    var nums = (0..20).shuffled().toIntArray()
 //    val unsortedArray1: IntArray = (1..100).shuffled().toIntArray()
-    val unsortedArray2: IntArray = (1..100000000).shuffled().toIntArray()
+//    val unsortedArray2: IntArray = (1..100000000).shuffled().toIntArray()
 //    val unsortedArray3: IntArray = (1..100000).shuffled().toIntArray()
-    val arr = intArrayOf(3, 3, 2, 2)
+//    val arr = intArrayOf(3, 3, 2, 2)
 //    mergeSort(arr, 0, arr.size - 1)
 //    println("TARGET AT IDX: ${arr.joinToString(" ,")}")
 //    mergeSort(unsortedArray, 0, unsortedArray.size - 1)
@@ -145,9 +161,11 @@ fun main() {
 //    println(unsortedArray1.joinToString(", "))
 //    val bubbleSortTime = measureTimeMillis { bubbleSort(unsortedArray3) }
 //    val mergeSortTime = measureTimeMillis { mergeSort(unsortedArray1, 0, unsortedArray1.size - 1) }
-    val quickSortTime = measureTimeMillis { quickSort(unsortedArray2, 0, unsortedArray2.size - 1) }
-    println("MERGE-SORT: \n" +
-            "QUICK-SORT: $quickSortTime\n" +
-            "BUBBLE-SORT: ")
-
+//    val quickSortTime = measureTimeMillis { quickSort(unsortedArray2, 0, unsortedArray2.size - 1) }
+//    println("MERGE-SORT: \n" +
+//            "QUICK-SORT: $quickSortTime\n" +
+//            "BUBBLE-SORT: ")
+    println(nums.joinToString(", "))
+    selectionSort(nums)
+    println(nums.joinToString(", "))
 }
