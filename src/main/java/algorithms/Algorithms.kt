@@ -1,7 +1,5 @@
 package algorithms
 
-import kotlin.system.measureTimeMillis
-
 fun binarySearch(arr: IntArray, target: Int): Int{
     var low = 0
     var high = arr.size - 1
@@ -148,6 +146,32 @@ fun selectionSort(arr: IntArray) {
     }
 }
 
+fun insertionSort(arr: IntArray) {
+    for (i in arr.indices) {
+        var j = i
+        while (j > 0 && arr[j - 1] > arr[j]) {
+            val temp = arr[j - 1]
+            arr[j - 1] = arr[j]
+            arr[j] = temp
+            j--
+        }
+    }
+}
+
+fun insertionSortRecursive(arr: IntArray, idx: Int) {
+    if (idx > arr.size - 1) return
+    swap(arr, idx)
+    insertionSortRecursive(arr, idx + 1)
+}
+
+private fun swap(arr: IntArray, idx: Int) {
+    if (idx <= 0 || arr[idx - 1] <= arr[idx]) return
+    val temp = arr[idx - 1]
+    arr[idx - 1] = arr[idx]
+    arr[idx] = temp
+    swap(arr, idx - 1)
+}
+
 fun main() {
     var nums = (0..20).shuffled().toIntArray()
 //    val unsortedArray1: IntArray = (1..100).shuffled().toIntArray()
@@ -166,6 +190,6 @@ fun main() {
 //            "QUICK-SORT: $quickSortTime\n" +
 //            "BUBBLE-SORT: ")
     println(nums.joinToString(", "))
-    selectionSort(nums)
+    insertionSortRecursive(nums, 1)
     println(nums.joinToString(", "))
 }
