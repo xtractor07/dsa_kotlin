@@ -1,15 +1,16 @@
 package leetCodeSolutioning
 
 import kotlin.math.abs
+import kotlin.math.max
 
 class Easy {
-    fun alterMerge(word1: String, word2: String): String{
+    fun alterMerge(word1: String, word2: String): String {
         var finalString = ""
-        val mainString = StringBuilder(if (word1.length > word2.length ) word1 else word2)
-        val idx = if (word1.length < word2.length ) word1.length else word2.length
+        val mainString = StringBuilder(if (word1.length > word2.length) word1 else word2)
+        val idx = if (word1.length < word2.length) word1.length else word2.length
         for (i in 0 until idx) {
             finalString += word1[i].toString() + word2[i].toString()
-            if(mainString.isNotEmpty()){
+            if (mainString.isNotEmpty()) {
                 mainString.deleteCharAt(0)
             }
         }
@@ -17,17 +18,17 @@ class Easy {
         return finalString
     }
 
-    fun gcdStrings(str1: String, str2: String): String{
-        if (str1+str2 != str2+str1){
+    fun gcdStrings(str1: String, str2: String): String {
+        if (str1 + str2 != str2 + str1) {
             return ""
         }
-        if (str1 == str2){
+        if (str1 == str2) {
             return str1
         }
-        if (str1.length > str2.length){
+        if (str1.length > str2.length) {
             return gcdStrings(str2, str1)
         }
-        if(str2.startsWith(str2)){
+        if (str2.startsWith(str2)) {
             return gcdStrings(str1, str2.substring(str1.length))
         }
         return ""
@@ -37,7 +38,7 @@ class Easy {
         val result = mutableListOf<Boolean>()
         val max = candies.max()
         val min = candies.min()
-        if ((candies.size >= 2) && (candies.size <= 100) && (min >= 1) && (max <= 100) && (extraCandies <= 50) && (extraCandies >= 1)){
+        if ((candies.size >= 2) && (candies.size <= 100) && (min >= 1) && (max <= 100) && (extraCandies <= 50) && (extraCandies >= 1)) {
             for (i in candies) {
                 if (((i + extraCandies) >= max)) {
                     result.add(true)
@@ -45,23 +46,23 @@ class Easy {
                     result.add(false)
                 }
             }
-    }
+        }
         return result
     }
 
     fun canPlaceFlowers(flowerbed: List<Int>, n: Int): Boolean {
         var internalCount = 0
         var nCopy = n
-        if ((flowerbed.size <= 2 * (10 * 10 * 10 * 10)) && n <= flowerbed.size){
+        if ((flowerbed.size <= 2 * (10 * 10 * 10 * 10)) && n <= flowerbed.size) {
             for (element in flowerbed) {
                 if (element == 0) {
                     internalCount += 1
                 }
-                if(internalCount == 3){
+                if (internalCount == 3) {
                     nCopy -= 1
                     internalCount = 1
                 }
-                if(nCopy == 0){
+                if (nCopy == 0) {
                     return true
                 }
             }
@@ -74,21 +75,19 @@ class Easy {
         val vowels = setOf('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
         val arr = s.toCharArray()
         var start = 0
-        var end  = s.length - 1
+        var end = s.length - 1
 
-        while(start < end) {
-            if(arr[start].lowercaseChar() in vowels && arr[end].lowercaseChar() in vowels) {
+        while (start < end) {
+            if (arr[start].lowercaseChar() in vowels && arr[end].lowercaseChar() in vowels) {
                 val temp = arr[start]
                 arr[start] = arr[end]
                 arr[end] = temp
 
                 start++
                 end--
-            }
-            else if (arr[start].lowercaseChar() !in vowels){
+            } else if (arr[start].lowercaseChar() !in vowels) {
                 start++
-            }
-            else if (arr[end].lowercaseChar() !in vowels){
+            } else if (arr[end].lowercaseChar() !in vowels) {
                 end--
             }
         }
@@ -100,7 +99,7 @@ class Easy {
         var start = 0
         var end = s.size - 1
 
-        while(start < end) {
+        while (start < end) {
 
             val temp = s[start]
             s[start] = s[end]
@@ -118,7 +117,7 @@ class Easy {
         var otherPiece = s.slice(k until s.length)
         var start = 0
         var end = splitStr.size - 1
-        while (start < end){
+        while (start < end) {
             val temp = splitStr[start]
             splitStr[start] = splitStr[end]
             splitStr[end] = temp
@@ -130,22 +129,22 @@ class Easy {
         return String(splitStr) + otherPiece
     }
 
-    fun reverseWordsChar(s: String) : Any {
+    fun reverseWordsChar(s: String): Any {
         var processing = s.split(" ".toRegex()).toMutableList()
         var word = ""
         for ((count, element) in processing.withIndex()) {
             var result = element.toCharArray()
-                var start = 0
-                var end = element.length - 1
-                while (start < end){
-                    val temp = result[start]
-                    result[start] = result[end]
-                    result[end] = temp
+            var start = 0
+            var end = element.length - 1
+            while (start < end) {
+                val temp = result[start]
+                result[start] = result[end]
+                result[end] = temp
 
-                    start++
-                    end--
-                }
-                processing[count] = String(result)
+                start++
+                end--
+            }
+            processing[count] = String(result)
         }
         return processing.joinToString(separator = " ")
     }
@@ -210,10 +209,11 @@ class Easy {
 
         return answer
     }
+
     fun moveZeroes(nums: IntArray): Unit {
         var nonZeroIndex = 0
-        for (idx in nums.indices){
-            if(nums[idx] != 0) {
+        for (idx in nums.indices) {
+            if (nums[idx] != 0) {
                 val temp = nums[idx]
                 nums[idx] = nums[nonZeroIndex]
                 nums[nonZeroIndex] = temp
@@ -229,8 +229,8 @@ class Easy {
 
         var p = m + n - 1
 
-        while (p1 >= 0 && p2 >= 0){
-            if (nums1[p1] < nums2[p2]){
+        while (p1 >= 0 && p2 >= 0) {
+            if (nums1[p1] < nums2[p2]) {
                 nums1[p] = nums2[p2]
                 p2--
             } else {
@@ -240,7 +240,7 @@ class Easy {
             p -= 1
         }
 
-        while(p2 >= 0) {
+        while (p2 >= 0) {
             nums1[p] = nums2[p2]
             p--
             p2--
@@ -267,9 +267,9 @@ class Easy {
     fun majorityElement(nums: IntArray): Int {
         var frequencyMap = mutableMapOf<Int, Int>()
         var count = 1
-        for (idx in nums.indices){
-            if(nums[idx] in frequencyMap) {
-                count ++
+        for (idx in nums.indices) {
+            if (nums[idx] in frequencyMap) {
+                count++
                 frequencyMap[nums[idx]] = count
             } else {
                 count = 1
@@ -278,18 +278,19 @@ class Easy {
         }
         var max = 0
         for ((key, value) in frequencyMap) {
-            if(value > max) {
+            if (value > max) {
                 max = key
             }
         }
         return max
     }
+
     fun findDuplicate(nums: IntArray): Int {
         var frequencyMap = mutableMapOf<Int, Int>()
         var count = 1
         var result = -1
         for (idx in nums.indices) {
-            if(nums[idx] in frequencyMap) {
+            if (nums[idx] in frequencyMap) {
                 count += 1
                 frequencyMap[nums[idx]] = count
             } else {
@@ -299,7 +300,7 @@ class Easy {
         }
 
         for ((key, value) in frequencyMap) {
-            if(value == 2) {
+            if (value == 2) {
                 result = key
             }
         }
@@ -308,7 +309,7 @@ class Easy {
     }
 
     fun arraySign(nums: IntArray): Int {
-        return if(0 !in nums) {
+        return if (0 !in nums) {
             var negativeCount = 0
             nums.sort()
             for (idx in nums.indices) {
@@ -328,14 +329,14 @@ class Easy {
         val answer = mutableListOf<List<Int>>()
         var tempList = mutableListOf<Int>()
         for (i in nums1.indices) {
-            if(nums1[i] !in nums2) {
+            if (nums1[i] !in nums2) {
                 tempList.add(nums1[i])
             }
         }
         answer.add(tempList.distinct())
         tempList = mutableListOf()
         for (j in nums2.indices) {
-            if(nums2[j] !in nums1) {
+            if (nums2[j] !in nums1) {
                 tempList.add(nums2[j])
             }
         }
@@ -348,10 +349,10 @@ class Easy {
         val n = mat.size
         var sum = 0
         for (idx in 0 until n) {
-            sum += if(idx == n - 1 - idx){
+            sum += if (idx == n - 1 - idx) {
                 mat[idx][idx]
             } else {
-                mat[idx][idx] + mat[idx][n-1-idx]
+                mat[idx][idx] + mat[idx][n - 1 - idx]
             }
         }
         return sum
@@ -389,7 +390,7 @@ class Easy {
         val left = IntArray(n1)
         val right = IntArray(n2)
 
-        for (i in 0 until n1){
+        for (i in 0 until n1) {
             left[i] = arr[low + i]
         }
         for (j in 0 until n2) {
@@ -411,7 +412,7 @@ class Easy {
             k++
         }
 
-        while(i < n1) {
+        while (i < n1) {
             arr[k] = left[i]
             i++
             k++
@@ -448,16 +449,43 @@ class Easy {
         val actualSum = nums.sum()
         return expectedSum - actualSum
     }
+
+    fun findMaxConsecutiveOnes(nums: IntArray): Int {
+        if (nums.isEmpty()) return 0  // Handling empty array
+
+        var maxConCount = 0
+        var currentCount = 0
+
+        for (i in nums.indices) {
+            if (nums[i] == 1) {
+                currentCount++
+                maxConCount = maxOf(maxConCount, currentCount)
+            } else {
+                currentCount = 0
+            }
+        }
+        return maxConCount
+    }
+
+    fun singleNumber(nums: IntArray): Int {
+        return if (nums.isNotEmpty()) {
+            var freqMap = mutableMapOf<Int, Int>()
+            for (num in nums) {
+                freqMap[num] = freqMap.getOrDefault(num, 0) + 1
+            }
+            freqMap.filter { it.value == 1 }.keys.min()
+        } else -1
+    }
 }
 
 fun main() {
-    val nums = intArrayOf(9,6,4,2,3,5,7,0,1)
+    val nums = intArrayOf(1,1,0,1,1,1)
     val input1 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(5, 6), intArrayOf(6, 7))
     val input2 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 5))
     val unsortedArray: IntArray = (1..100).shuffled().toIntArray()
     val input3 = intArrayOf(-4, 0, 3, 10, -1).toList().shuffled().toIntArray()
     val easy = Easy()
 //    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
-    println(easy.missingNumber(nums))
+    println(easy.findMaxConsecutiveOnes(nums))
 }
 
