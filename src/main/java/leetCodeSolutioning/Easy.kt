@@ -442,15 +442,22 @@ class Easy {
 
         return result
     }
+
+    fun missingNumber(nums: IntArray): Int {
+        val expectedSum = (nums.size * (nums.size + 1)) / 2
+        val actualSum = nums.sum()
+        return expectedSum - actualSum
+    }
 }
 
 fun main() {
+    val nums = intArrayOf(9,6,4,2,3,5,7,0,1)
     val input1 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(5, 6), intArrayOf(6, 7))
     val input2 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 5))
     val unsortedArray: IntArray = (1..100).shuffled().toIntArray()
     val input3 = intArrayOf(-4, 0, 3, 10, -1).toList().shuffled().toIntArray()
     val easy = Easy()
-    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
-    println(unsortedArray.joinToString(", "))
+//    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
+    println(easy.missingNumber(nums))
 }
 
