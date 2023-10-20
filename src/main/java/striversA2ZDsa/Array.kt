@@ -63,76 +63,81 @@ fun rotateArrayKTimes(arr: IntArray, k: Int) {
     }
 }
 
-fun binarySearch(arr: IntArray, target: Int): Int {
+/**Medium*/
+fun twoSum(nums: IntArray, target: Int): IntArray{
+    val map = mutableMapOf<Int, Int>()
+    for ((idx, value) in nums.withIndex()) {
+        val complement = target - value
+
+        map[complement]?.let {
+            return intArrayOf(it, idx)
+        }
+        map[value] = idx
+    }
+    return intArrayOf(-1, -1)
+}
+
+/**Medium*/
+fun sortColorsNaive(nums: IntArray) {
+    var resultArr = IntArray(nums.size)
+    var idx = 0
+    for (num in nums) {
+        if (num == 0) {
+            resultArr[idx] = 0
+            idx++
+        }
+    }
+    for (num in nums) {
+        if (num == 1) {
+            resultArr[idx] = 1
+            idx++
+        }
+    }
+    for (num in nums) {
+        if (num == 2) {
+            resultArr[idx] = 2
+            idx++
+        }
+    }
+    for ((index, num) in resultArr.withIndex()) {
+        nums[index] = num
+    }
+}
+
+fun sortColorsOptimized(nums: IntArray) {
     var low = 0
-    var high = arr.size - 1
-    while (low <= high) {
-        val mid = low + (high - low)  / 2
+    var high = nums.size - 1
+    var current = 0
 
-        when{
-            arr[mid] == target -> return mid
-            arr[mid] > target -> high = mid - 1
-            else -> low = mid + 1
+    while (current <= high) {
+        when(nums[current]) {
+            0 -> {
+                nums[current] = nums[low]
+                nums[low] = 0
+                low++
+                current++
+            }
+            1 -> {
+                current++
+            }
+            2 -> {
+                nums[current] = nums[high]
+                nums[high] = 2
+                high--
+            }
         }
     }
-    return -1
 }
-
-fun mergeSort(arr: IntArray, low: Int, high: Int) {
-    if (low < high) {
-        val mid = low + (high - low) / 2
-        mergeSort(arr, low, mid)
-        mergeSort(arr, mid + 1, high)
-        merge(arr, low, mid, high)
-    }
-}
-
-fun merge(arr: IntArray, low: Int, mid: Int, high: Int) {
-    val n1 = mid - low + 1
-    val n2 = high - mid
-    var left = IntArray(n1)
-    var right = IntArray(n2)
-
-    for (i in 0 until n1) {
-        left[i] = arr[low + i]
-    }
-    for (j in 0 until n2) {
-        right[j] = arr[j + mid + 1]
-    }
-
-    var i = 0
-    var j = 0
-    var k = low
-
-    while (i < n1 && j < n2) {
-        if (left[i] <= right[j]) {
-            arr[k] = left[i]
-            i++
-        } else {
-            arr[k] = right[j]
-            j++
-        }
-        k++
-    }
-    while (i < n1) {
-        arr[k] = left[i]
-        i++
-        k++
-    }
-    while (j < n2) {
-        arr[k] = right[j]
-        j++
-        k++
-    }
-}
-
 fun main() {
-    val arr = (1..100).shuffled().toIntArray()
-    val testArr = intArrayOf(0, 0, 1, 2, 3, 3, 3, 3, 4, 5, 5, 6, 6, 7, 8)
+//    val arr = (1..100).shuffled().toIntArray()
+//    val testArr = intArrayOf(0, 0, 1, 2, 3, 3, 3, 3, 4, 5, 5, 6, 6, 7, 8)
 //    val distinctRange = removeDuplicatesFromSorted(testArr)
 //    println(testArr.slice(0..distinctRange).joinToString(", "))
 //    rotateArrayKTimes(arr, 14)
 //    println("${binarySearch(arr, 14)}")
-    mergeSort(arr, 0, arr.size - 1)
-    println("RESULT : ${arr.joinToString (", ")}")
+//    mergeSort(arr, 0, arr.size - 1)
+//    println("RESULT : ${arr.joinToString (", ")}")
+    val nums = intArrayOf(2,0,2,1,1,0)
+    sortColorsOptimized(nums)
+    println(nums.joinToString(", "))
 }
