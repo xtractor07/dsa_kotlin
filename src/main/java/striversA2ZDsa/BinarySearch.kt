@@ -99,7 +99,54 @@ fun searchRangeNaive(nums: IntArray, target: Int): IntArray{
     }
 }
 
+fun occurrenceOfNum(nums: IntArray, target: Int): Int {
+    val leftIdx = countLeftOccurrences(nums, target)
+    val rightIdx = countRightOccurrences(nums, target)
+
+    if (leftIdx <= rightIdx) {
+        return rightIdx - leftIdx + 1
+    }
+    return 0
+}
+
+fun countLeftOccurrences (nums: IntArray, target: Int): Int {
+    var low = 0
+    var high = nums.size - 1
+    var idx = 0
+    while (low <= high) {
+        val mid = low + (high - low) / 2
+        when {
+            nums[mid] == target -> {
+                idx = mid
+                high = mid - 1
+            }
+            nums[mid] < target -> low = mid + 1
+            else -> high = mid - 1
+        }
+    }
+
+    return idx
+}
+
+fun countRightOccurrences (nums: IntArray, target: Int): Int {
+    var low = 0
+    var high = nums.size - 1
+    var idx = 0
+    while (low <= high) {
+        val mid = low + (high - low) / 2
+        when {
+            nums[mid] == target -> {
+                idx = mid
+                low = mid + 1
+            }
+            nums[mid] < target -> low = mid + 1
+            else -> high = mid - 1
+        }
+    }
+    return idx
+}
+
 fun main() {
-    val nums = intArrayOf(5, 7, 7, 7, 8, 8, 8, 8, 9, 9, 10, 11, 11)
-    print(searchRangeOptimised(nums, 14).joinToString(", "))
+    val nums = intArrayOf(5, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 10, 11, 11)
+    print(occurrenceOfNum(nums, 5))
 }
