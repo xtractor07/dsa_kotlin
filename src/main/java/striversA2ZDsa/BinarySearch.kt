@@ -1,5 +1,7 @@
 package striversA2ZDsa
 
+import java.awt.desktop.AppHiddenEvent
+
 fun search(nums: IntArray, target: Int): Int {
     var low = 0
     var high = nums.size - 1
@@ -146,7 +148,33 @@ fun countRightOccurrences (nums: IntArray, target: Int): Int {
     return idx
 }
 
+fun searchRotatedArray(nums: IntArray, target: Int): Int{
+    var low = 0
+    var high = nums.size - 1
+    while (low <= high) {
+        val mid = low + (high - low) / 2
+        when {
+            nums[mid] == target -> return mid
+            nums[low] <= nums[mid] -> {
+                if (nums[low] <= target && target <= nums[mid]) {
+                    high = mid - 1
+                } else {
+                    low = mid + 1
+                }
+            }
+            nums[mid] <= nums[low] -> {
+                if (nums[mid] <= target && target <= nums[high]){
+                    low = mid + 1
+                } else {
+                    high = mid - 1
+                }
+            }
+        }
+    }
+    return -1
+}
+
 fun main() {
-    val nums = intArrayOf(5, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 10, 11, 11)
-    print(occurrenceOfNum(nums, 5))
+    val nums = intArrayOf(7, 8, 9, 1, 2, 3, 4, 5, 6)
+    print(searchRotatedArray(nums, 8))
 }
