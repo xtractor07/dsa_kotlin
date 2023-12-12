@@ -57,6 +57,26 @@ class Medium {
 
         return intArrayOf()
     }
+
+    fun sortColors(nums: IntArray): Unit {
+        var start = 0
+        var end = nums.size - 1
+        var idx = 0
+        while (idx <= end) {
+            when (nums[idx]) {
+                0 -> {
+                    nums[idx] = nums[start].also { nums[start] = nums[idx] }
+                    start++
+                    idx++
+                }
+                2 -> {
+                    nums[idx] = nums[end].also { nums[end] = nums[idx] }
+                    end--
+                }
+                else -> idx++
+            }
+        }
+    }
 }
 
 fun main() {
