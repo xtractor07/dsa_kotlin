@@ -70,7 +70,7 @@ class Easy {
         return false
     }
 
-    fun reverseVowels(s: String): String {
+/*    fun reverseVowels(s: String): String {
 
         val vowels = setOf('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
         val arr = s.toCharArray()
@@ -93,7 +93,7 @@ class Easy {
         }
 
         return String(arr)
-    }
+    }*/
 
     fun reverseString(s: CharArray): String {
         var start = 0
@@ -149,7 +149,7 @@ class Easy {
         return processing.joinToString(separator = " ")
     }
 
-    fun reverseWords(s: String): String {
+/*    fun reverseWords(s: String): String {
         var processingList = s.split("\\s+".toRegex()).toMutableList()
 //        var word = ""
 //        var idx = 0
@@ -178,7 +178,7 @@ class Easy {
         }
 
         return processingList.joinToString(separator = " ").trim()
-    }
+    }*/
 
     fun productExceptSelf(nums: IntArray): IntArray {
         val n = nums.size
@@ -476,16 +476,128 @@ class Easy {
             freqMap.filter { it.value == 1 }.keys.min()
         } else -1
     }
+
+    fun getConcatenation(nums: IntArray): IntArray {
+        val n = nums.size
+        val resArray = IntArray(2 * n)
+        for (idx in nums.indices) {
+            resArray[idx] = nums[idx]
+            resArray[n + idx] = nums[idx]
+        }
+        return resArray
+    }
+
+    fun numIdenticalPairs(nums: IntArray): Int {
+        val countMap = HashMap<Int, Int>()
+        var goodPairs = 0
+        nums.forEach {num ->
+            val count = countMap.getOrDefault(num, 0)
+            goodPairs += count
+            countMap[num] = count + 1
+        }
+
+        return goodPairs
+    }
+
+    fun mergeAlternately(word1: String, word2: String): String {
+        val res = StringBuilder()
+        val minLength = minOf(word1.length, word2.length)
+        for (i in 0 until minLength) {
+            res.append(word1[i])
+            res.append(word2[i])
+        }
+        if (minLength < word1.length) {
+            res.append(word1.substring(minLength))
+        } else {
+            res.append((word2.substring(minLength)))
+        }
+
+        return res.toString()
+    }
+
+    fun gcdOfStrings(str1: String, str2: String): String {
+        fun gcd(a: Int, b: Int): Int {
+            return if (b == 0) a else gcd(b, a % b)
+        }
+
+        if (str1 + str2 != str2 + str1) {
+            return ""
+        }
+        val gcdLength = gcd(str1.length, str2.length)
+
+        return str1.substring(0, gcdLength)
+    }
+
+    fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
+        /**Bruteforce Approach*/
+        /*val result = mutableListOf<Boolean>()
+        val max = candies.max()
+        for (idx in candies.indices) {ooi
+            if (candies[idx] + extraCandies >= max) {
+                result.add(true)
+            } else {
+                result.add(false)
+            }
+        }
+        return result*/
+        /**Optimised Approach*/
+        val max = candies.max()
+        return candies.map { it + extraCandies >= max }
+    }
+
+    fun reverseVowels(s: String): String {
+        var low = 0
+        var high = s.length - 1
+        val charArray = s.toCharArray()
+        val vowels = listOf('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
+        while (low < high) {
+            while (low < high && charArray[low] !in vowels) {
+                low++
+            }
+            while (low < high && charArray[high] !in vowels) {
+                high--
+            }
+            if (charArray[low] in vowels && charArray[high] in vowels) {
+                charArray[low] = charArray[high].also { charArray[high] = charArray[low] }
+                low++
+                high--
+            }
+        }
+        return String(charArray)
+    }
+
+    fun reverseWords(s: String): String {
+        val charArray = s.toCharArray()
+        val stringList = mutableListOf<String>()
+        var temp = ""
+
+        for (char in charArray) {
+            if (char != ' ') {
+                temp += char
+            } else if (temp.isNotEmpty()) {
+                stringList.add(temp)
+                temp = ""
+            }
+        }
+
+        if (temp.isNotEmpty()) {
+            stringList.add(temp)
+        }
+
+        val result = stringList.reversed().joinToString(separator = " ")
+        return result
+    }
 }
 
 fun main() {
-    val nums = intArrayOf(1,1,0,1,1,1)
+    val nums = intArrayOf(1,2,1)
     val input1 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(5, 6), intArrayOf(6, 7))
     val input2 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 5))
     val unsortedArray: IntArray = (1..100).shuffled().toIntArray()
     val input3 = intArrayOf(-4, 0, 3, 10, -1).toList().shuffled().toIntArray()
+    val testString = "the sky is blue"
     val easy = Easy()
 //    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
-    println(easy.findMaxConsecutiveOnes(nums))
+    print(easy.reverseWords(testString))
 }
 

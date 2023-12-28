@@ -77,10 +77,25 @@ class Medium {
             }
         }
     }
+
+    fun productExceptSelf(nums: IntArray): IntArray {
+        val res = IntArray(nums.size) { 1 }
+        for(outerIdx in nums.indices) {
+            for(innerIdx in nums.indices) {
+                if(outerIdx != innerIdx) {
+                    res[outerIdx] *= nums[innerIdx]
+                }
+            }
+        }
+
+        return res
+    }
 }
 
 fun main() {
     val arr = intArrayOf(1, 2, 3, 4, 5, 7)
     val medium = Medium()
-    println(medium.hasPairWithSum(arr, 8))
+    medium.productExceptSelf(arr).forEach { num ->
+        print("$num, ")
+    }
 }
