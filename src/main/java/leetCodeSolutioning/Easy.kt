@@ -587,17 +587,31 @@ class Easy {
         val result = stringList.reversed().joinToString(separator = " ")
         return result
     }
+
+    fun arrayUnion(arr1: IntArray, arr2: IntArray): IntArray {
+        val result = mutableMapOf<Int, Int>()
+        for(num in arr1) {
+           result[num] = result.getOrDefault(num, 0) + 1
+        }
+        for(num in arr2){
+           result[num] = result.getOrDefault(num, 0) + 1
+        }
+
+        return result.keys.toIntArray()
+    }
 }
 
 fun main() {
     val nums = intArrayOf(1,2,1)
     val input1 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(5, 6), intArrayOf(6, 7))
     val input2 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 5))
+    val arr1 = intArrayOf(1, 2, 3, 4, 5)
+    val arr2 = intArrayOf(2, 3, 4, 4, 5)
     val unsortedArray: IntArray = (1..100).shuffled().toIntArray()
     val input3 = intArrayOf(-4, 0, 3, 10, -1).toList().shuffled().toIntArray()
     val testString = "the sky is blue"
     val easy = Easy()
 //    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
-    print(easy.reverseWords(testString))
+    print(easy.arrayUnion(arr1, arr2).joinToString(", "))
 }
 
