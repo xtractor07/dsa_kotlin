@@ -599,19 +599,161 @@ class Easy {
 
         return result.keys.toIntArray()
     }
+
+    fun countNegatives(grid: Array<IntArray>): Int {
+        var count = 0
+        for (i in grid.indices) {
+            for (j in grid.first().indices) {
+                if (grid[i][j] < 0) {
+                    count ++
+                }
+            }
+        }
+
+        return count
+    }
+
+    fun searchRange(nums: IntArray, target: Int): IntArray {
+        val result = intArrayOf(-1, -1)
+        if (binarySearch(nums, target)) {
+            result[0] = lowerBound(nums, target)
+            result[1] = upperBound(nums, target)
+        }
+        return result
+    }
+
+    private fun binarySearch(nums: IntArray, target: Int): Boolean {
+        var low = 0
+        var high = nums.size - 1
+        while (low <= high) {
+            val mid = low + (high - low) / 2
+
+            when {
+                nums[mid] == target -> return true
+                nums[mid] < target -> low = mid + 1
+                else -> high = mid - 1
+            }
+        }
+        return false
+    }
+
+    private fun lowerBound(nums: IntArray, target: Int): Int {
+        var low = 0
+        var high = nums.size - 1
+        var result = -1
+        while (low <= high) {
+            val mid = low + (high - low) / 2
+            when {
+                nums[mid] >= target -> {
+                    result = mid
+                    high = mid - 1
+                }
+                else -> low = mid + 1
+            }
+        }
+
+        return result
+    }
+
+    private fun upperBound(nums: IntArray, target: Int): Int {
+        var low = 0
+        var high = nums.size - 1
+        var result = -1
+
+        while (low <= high) {
+            val mid = low + (high - low) / 2
+            when {
+                nums[mid] <= target -> {
+                    result = mid
+                    low = mid + 1
+                }
+                else -> high = mid - 1
+            }
+        }
+        return result
+    }
+
+    fun searchRotated(nums: IntArray, target: Int): Int {
+        var low = 0
+        var high = nums.size - 1
+
+        while (low <= high) {
+            val mid = low + (high - low) / 2
+
+            when {
+                nums[mid] == target -> return mid
+                nums[low] <= nums[mid] -> {
+                    if (nums[low] <= target && target <= nums[mid]) {
+                        high = mid - 1
+                    } else {
+                        low = mid + 1
+                    }
+                }
+                else -> {
+                    if (nums[mid] <= target && target <= nums[high]) {
+                        low = mid + 1
+                    } else {
+                        high = mid - 1
+                    }
+                }
+            }
+        }
+
+        return -1
+    }
+
+    fun searchRotatedSecond(nums: IntArray, target: Int): Boolean {
+        var low = 0
+        var high = nums.size - 1
+        while (low <= high) {
+            val mid = low + (high - low) / 2
+            when {
+                nums[mid] == target -> return true
+                nums[low] == nums[mid] && nums[mid] == nums[high] -> {
+                    low++
+                    high--
+                    continue
+                }
+                nums[low] <= nums[mid] -> {
+                    if (nums[low] <= target && target <= nums[mid]) {
+                        high = mid - 1
+                    } else {
+                        low = mid + 1
+                    }
+                }
+                else -> {
+                    if (nums[mid] <= target && target <= nums[high]) {
+                        low = mid + 1
+                    } else {
+                        high = mid - 1
+                    }
+                }
+            }
+        }
+        return false
+    }
+
 }
 
 fun main() {
+
+    val nums3 = mutableListOf(-1,1,2,3,1)
     val nums = intArrayOf(1,2,1)
     val input1 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 4), intArrayOf(4, 5), intArrayOf(5, 6), intArrayOf(6, 7))
     val input2 = arrayOf(intArrayOf(1, 2), intArrayOf(2, 3), intArrayOf(3, 5))
     val arr1 = intArrayOf(1, 2, 3, 4, 5)
     val arr2 = intArrayOf(2, 3, 4, 4, 5)
+    val arr3 = intArrayOf(5,7,7,8,8,8,8,8,8,10)
+    val arr4 = intArrayOf(4,5,6,7,0,1,2)
+    val arr5 = intArrayOf(2,5,6,0,0,1,2)
     val unsortedArray: IntArray = (1..100).shuffled().toIntArray()
     val input3 = intArrayOf(-4, 0, 3, 10, -1).toList().shuffled().toIntArray()
     val testString = "the sky is blue"
+//    val grid = arrayOf(intArrayOf(4,3,2,-1), intArrayOf(3,2,1,-1), intArrayOf(1,1,-1,-2), intArrayOf(-1,-1,-2,-3))
+    val grid = arrayOf(intArrayOf(5,1,0), intArrayOf(-5,-5,-5))
     val easy = Easy()
 //    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
-    print(easy.arrayUnion(arr1, arr2).joinToString(", "))
+//    print(easy.searchRange(arr3, 6).joinToString(", "))
+    print(easy.searchRotatedSecond(arr5, 3))
 }
 

@@ -4,6 +4,22 @@ import algorithms.merge
 
 class Medium {
 
+    fun search(nums: IntArray, target: Int): Int {
+        var low = 0
+        var high = nums.size - 1
+
+        while (low <= high) {
+            val mid = low + (high - low) / 2
+            when {
+                nums[mid] == target -> return mid
+                nums[mid] < target -> low = mid + 1
+                else -> high = mid - 1
+            }
+        }
+
+        return -1
+    }
+
     fun binarySearch(arr: IntArray, target: Int): Boolean {
         var left = 0
         var right = arr.size - 1
@@ -160,6 +176,51 @@ class Medium {
 
         return false
     }
+
+    fun findMin(nums: IntArray): Int {
+        var low = 0
+        var high = nums.size - 1
+
+        // Continue searching while the low pointer is less than or equal to the high pointer.
+        while (low < high) {
+            val mid = low + (high - low) / 2
+
+            // If the mid element is greater than the high element, the minimum is in the right part.
+            if (nums[mid] > nums[high]) {
+                low = mid + 1
+            } else {
+                // Else, the minimum is in the left part or at mid.
+                high = mid
+            }
+        }
+        // When low meets high, the minimum is found.
+        return nums[low]
+    }
+
+    fun findMinHard(nums: IntArray): Int {
+        var low = 0
+        var high = nums.size - 1
+
+        while(low < high) {
+            val mid = low + (high - low) / 2
+            when {
+                nums[low] == nums[mid] && nums[mid] == nums[high] -> {
+                    low++
+                    high--
+                    continue
+                }
+                nums[mid] > nums[high] -> {
+                    low = mid + 1
+                }
+                else -> {
+                    high = mid
+                }
+            }
+        }
+
+        return nums[low]
+    }
+
 }
 
 fun main() {
@@ -168,6 +229,7 @@ fun main() {
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
     val medium = Medium()
-    medium.mergeSort(arr1, 0, arr1.size - 1)
-    print(arr1.joinToString(", "))
+    val arr3 = intArrayOf(3,4,5,1,2)
+//    medium.mergeSort(arr1, 0, arr1.size - 1)
+    print(medium.findMin(arr3))
 }
