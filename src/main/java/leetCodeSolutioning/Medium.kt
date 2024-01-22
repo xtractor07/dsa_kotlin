@@ -246,6 +246,20 @@ class Medium {
         return -1
     }
 
+    fun lengthOfLongestSubstring(s: String): Int {
+        var start = 0
+        var maxLength = 0
+        val seenChars = mutableMapOf<Char, Int>()
+
+        for ((idx, char) in s.withIndex()) {
+            if (char in seenChars && seenChars[char]!! >= start) {
+                start = seenChars[char]!! + 1
+            }
+            seenChars[char] = idx
+            maxLength = maxOf(maxLength, idx - start + 1)
+        }
+        return maxLength
+    }
 }
 
 fun main() {
@@ -253,8 +267,9 @@ fun main() {
     var arr1: IntArray = (1..100).shuffled().toIntArray()
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
+    val s = "pwwkew"
     val medium = Medium()
     val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    print(medium.twoSumSorted(arr3, 9).joinToString(", "))
+    print(medium.lengthOfLongestSubstring(s))
 }
