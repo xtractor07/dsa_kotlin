@@ -1,5 +1,6 @@
 package leetCodeSolutioning
 
+import striversA2ZDsa.findEnd
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -731,6 +732,20 @@ class Easy {
             }
         }
         return false
+    }
+
+    fun twoSumUnsorted(nums: IntArray, target: Int): IntArray {
+        val hashMap = hashMapOf<Int, Int>()
+
+        for ((idx, value) in nums.withIndex()) {
+            val compliment = target - value
+            if (hashMap.contains(compliment)) {
+                return intArrayOf(idx, hashMap[compliment]!!)
+            }
+            hashMap[value] = idx
+        }
+
+        return intArrayOf()
     }
 
 }
