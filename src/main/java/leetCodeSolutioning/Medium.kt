@@ -260,6 +260,26 @@ class Medium {
         }
         return maxLength
     }
+
+    fun sortColorss(nums: IntArray): Unit {
+        var low = 0
+        var high = nums.size - 1
+        var idx = 0
+        while (idx <= high) {
+            when(nums[idx]) {
+                0 -> {
+                    nums[idx] = nums[low].also { nums[low] = nums[idx] }
+                    low++
+                    idx++
+                }
+                2 -> {
+                    nums[idx] = nums[high].also { nums[high] = nums[idx] }
+                    high--
+                }
+                else -> idx++
+            }
+        }
+    }
 }
 
 fun main() {

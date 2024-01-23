@@ -748,6 +748,19 @@ class Easy {
         return intArrayOf()
     }
 
+    fun majorityElementt(nums: IntArray): Int {
+        val map = hashMapOf<Int, Int>()
+        for (num in nums) {
+            if (map.contains(num)) {
+                map[num] = map[num]!! + 1
+            } else {
+                map[num] = 1
+            }
+        }
+        val maxEntry = map.maxBy { it.value }
+        return maxEntry.key
+    }
+
 }
 
 fun main() {
