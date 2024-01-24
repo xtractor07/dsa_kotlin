@@ -761,6 +761,27 @@ class Easy {
         return maxEntry.key
     }
 
+    fun isPalindrome(x: Int): Boolean {
+
+        if (x < 0) return false
+
+        // Convert the number to a string to easily compare characters
+        val str = x.toString()
+
+        // Compare characters from the start and the end moving towards the center
+        var i = 0
+        var j = str.length - 1
+        while (i < j) {
+            if (str[i] != str[j]) {
+                return false
+            }
+            i++
+            j--
+        }
+
+        return true
+    }
+
 }
 
 fun main() {
@@ -782,6 +803,6 @@ fun main() {
     val easy = Easy()
 //    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
 //    print(easy.searchRange(arr3, 6).joinToString(", "))
-    print(easy.searchRotatedSecond(arr5, 3))
+    print(easy.majorityElementt(arr3))
 }
 
