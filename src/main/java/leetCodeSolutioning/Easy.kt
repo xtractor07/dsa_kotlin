@@ -763,23 +763,20 @@ class Easy {
 
     fun isPalindrome(x: Int): Boolean {
 
-        if (x < 0) return false
-
-        // Convert the number to a string to easily compare characters
-        val str = x.toString()
-
-        // Compare characters from the start and the end moving towards the center
-        var i = 0
-        var j = str.length - 1
-        while (i < j) {
-            if (str[i] != str[j]) {
-                return false
-            }
-            i++
-            j--
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false
         }
 
-        return true
+        var originalNumber = x
+        var reversed = 0
+
+        while (originalNumber > 0) {
+            val lastDigit = originalNumber % 10
+            reversed += lastDigit
+            originalNumber /= 10
+        }
+
+        return x == reversed
     }
 
 }
