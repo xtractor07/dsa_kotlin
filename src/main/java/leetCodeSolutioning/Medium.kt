@@ -1,6 +1,7 @@
 package leetCodeSolutioning
 
 import algorithms.merge
+import striversA2ZDsa.list
 
 class Medium {
 
@@ -304,6 +305,24 @@ class Medium {
         }
     }
 
+    fun rearrangeArray(nums: IntArray): IntArray {
+        val result = mutableListOf<Int>()
+        val positive = nums.filter { it > 0 }
+        val negative = nums.filter { it < 0 }
+
+        var pos = 0
+        var neg = 0
+        for(idx in nums.indices) {
+            if (idx % 2 == 0) {
+                result.add(positive[pos])
+                pos++
+            } else {
+                result.add(negative[neg])
+                neg++
+            }
+        }
+        return result.toIntArray()
+    }
 
 }
 
@@ -311,11 +330,12 @@ fun main() {
     val arr = intArrayOf(1, 2, 3, 4, 5, 7)
     var arr1: IntArray = (1..100).shuffled().toIntArray()
     var arr2 = intArrayOf(-2,1,-3,4,-1,2,1,-5,4)
+    var arr3 = intArrayOf(3,-2,1,-5,2,-4)
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
     val s = "pwwkew"
     val medium = Medium()
-    val arr3 = intArrayOf(2,7,11,15)
+//    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    medium.maxSubArray(arr2)
+    print(medium.rearrangeArray(arr3).joinToString(", "))
 }

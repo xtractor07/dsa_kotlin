@@ -790,26 +790,6 @@ class Easy {
 
         return maxSell
     }
-
-//    fun maxProfit(prices: IntArray): Int {
-//        var minBuy = Int.MAX_VALUE
-//        var maxProfit = 0
-//        for (currentPrice in prices) {
-//            // Update the minimum buying price
-//            if (currentPrice < minBuy) {
-//                minBuy = currentPrice
-//            }
-//            // Calculate the profit if sold at the current price
-//            val profit = currentPrice - minBuy
-//            // Update the maximum profit
-//            if (profit > maxProfit) {
-//                maxProfit = profit
-//            }
-//        }
-//
-//        return maxProfit
-//    }
-
 }
 
 fun main() {
