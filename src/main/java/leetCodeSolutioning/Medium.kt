@@ -280,16 +280,42 @@ class Medium {
             }
         }
     }
+
+    fun maxSubArray(nums: IntArray): Int {
+        var sum = 0
+        var max = -999
+        var startIdx = 0
+        var endIdx = 0
+        for (idx in nums.indices) {
+            if (sum == 0) { startIdx = idx }
+            sum += nums[idx]
+            if (sum > max) {
+                max = sum
+                endIdx = idx
+            }
+            if (sum < 0) {
+                sum = 0
+            }
+        }
+
+        print(Pair(startIdx, endIdx))
+        return if (max < 0) 0 else {
+            max
+        }
+    }
+
+
 }
 
 fun main() {
     val arr = intArrayOf(1, 2, 3, 4, 5, 7)
     var arr1: IntArray = (1..100).shuffled().toIntArray()
+    var arr2 = intArrayOf(-2,1,-3,4,-1,2,1,-5,4)
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
     val s = "pwwkew"
     val medium = Medium()
     val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    print(medium.lengthOfLongestSubstring(s))
+    medium.maxSubArray(arr2)
 }

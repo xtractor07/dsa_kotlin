@@ -3,6 +3,7 @@ package leetCodeSolutioning
 import striversA2ZDsa.findEnd
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 
 class Easy {
     fun alterMerge(word1: String, word2: String): String {
@@ -779,6 +780,36 @@ class Easy {
         return x == reversed
     }
 
+    fun maxProfit(prices: IntArray): Int {
+        var minBuy = Int.MAX_VALUE
+        var maxSell = 0
+        for (currentPrice in prices) {
+            if(currentPrice < minBuy) minBuy = currentPrice
+            if (currentPrice - minBuy > maxSell) maxSell = currentPrice - minBuy
+        }
+
+        return maxSell
+    }
+
+//    fun maxProfit(prices: IntArray): Int {
+//        var minBuy = Int.MAX_VALUE
+//        var maxProfit = 0
+//        for (currentPrice in prices) {
+//            // Update the minimum buying price
+//            if (currentPrice < minBuy) {
+//                minBuy = currentPrice
+//            }
+//            // Calculate the profit if sold at the current price
+//            val profit = currentPrice - minBuy
+//            // Update the maximum profit
+//            if (profit > maxProfit) {
+//                maxProfit = profit
+//            }
+//        }
+//
+//        return maxProfit
+//    }
+
 }
 
 fun main() {
@@ -791,7 +822,7 @@ fun main() {
     val arr2 = intArrayOf(2, 3, 4, 4, 5)
     val arr3 = intArrayOf(5,7,7,8,8,8,8,8,8,10)
     val arr4 = intArrayOf(4,5,6,7,0,1,2)
-    val arr5 = intArrayOf(2,5,6,0,0,1,2)
+    val arr5 = intArrayOf(7,1,5,3,6,4)
     val unsortedArray: IntArray = (1..100).shuffled().toIntArray()
     val input3 = intArrayOf(-4, 0, 3, 10, -1).toList().shuffled().toIntArray()
     val testString = "the sky is blue"
@@ -800,6 +831,6 @@ fun main() {
     val easy = Easy()
 //    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
 //    print(easy.searchRange(arr3, 6).joinToString(", "))
-    print(easy.majorityElementt(arr3))
+    print(easy.maxProfit(arr5))
 }
 
