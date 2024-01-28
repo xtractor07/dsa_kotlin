@@ -2,6 +2,7 @@ package leetCodeSolutioning
 
 import algorithms.merge
 import striversA2ZDsa.list
+import techiniques.reverseArr
 
 class Medium {
 
@@ -322,6 +323,30 @@ class Medium {
             }
         }
         return result.toIntArray()
+    }
+
+    fun nextPermutation(nums: IntArray): Unit {
+        var idx = -1
+        val size = nums.size
+
+        for (ptr in size - 2 downTo  0) {
+            if (nums[ptr] < nums[ptr + 1]) {
+                idx = ptr
+                break
+            }
+        }
+
+        if (idx == -1) {
+            nums.reverse()
+        }
+
+        for (ptr in size - 1 downTo idx + 1) {
+            if (nums[ptr] > nums[idx]) {
+                nums[ptr] = nums[idx].also { nums[idx] = nums[ptr] }
+                break
+            }
+        }
+        reverseArr(nums, idx + 1, size - 1)
     }
 
 }
