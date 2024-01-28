@@ -349,18 +349,33 @@ class Medium {
         reverseArr(nums, idx + 1, size - 1)
     }
 
+    fun leadersInArray(nums: IntArray): IntArray {
+        val leaders = mutableListOf<Int>()
+        var max = Int.MIN_VALUE
+        for (idx in nums.size - 1 downTo 0) {
+            if (nums[idx] > max) {
+                max = nums[idx]
+                leaders.add(max)
+            }
+        }
+
+        leaders.reverse()
+
+        return leaders.toIntArray()
+    }
+
 }
 
 fun main() {
     val arr = intArrayOf(1, 2, 3, 4, 5, 7)
     var arr1: IntArray = (1..100).shuffled().toIntArray()
     var arr2 = intArrayOf(-2,1,-3,4,-1,2,1,-5,4)
-    var arr3 = intArrayOf(3,-2,1,-5,2,-4)
+    var arr3 = intArrayOf(4, 7, 1, 0)
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
     val s = "pwwkew"
     val medium = Medium()
 //    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    print(medium.rearrangeArray(arr3).joinToString(", "))
+    print(medium.leadersInArray(arr3).joinToString(", "))
 }
