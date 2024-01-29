@@ -364,18 +364,40 @@ class Medium {
         return leaders.toIntArray()
     }
 
+    fun longestConsecutive(nums: IntArray): Int {
+        if (nums.isEmpty()) return 0
+
+        mergeSort(nums, 0, nums.size - 1)
+        var count = 1
+        var maxCount = 1
+
+        for (idx in 1 until nums.size) {
+            if (nums[idx] != nums[idx - 1]) {
+                if (nums[idx] == nums[idx - 1] + 1) {
+                    count++
+                } else {
+                    maxCount = maxOf(maxCount, count)
+                    count = 1
+                }
+            }
+        }
+        maxCount = maxOf(maxCount, count)
+
+        return maxCount
+    }
+
 }
 
 fun main() {
     val arr = intArrayOf(1, 2, 3, 4, 5, 7)
     var arr1: IntArray = (1..100).shuffled().toIntArray()
     var arr2 = intArrayOf(-2,1,-3,4,-1,2,1,-5,4)
-    var arr3 = intArrayOf(4, 7, 1, 0)
+    var arr3 = intArrayOf(100,4,200,1,3,2)
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
     val s = "pwwkew"
     val medium = Medium()
 //    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    print(medium.leadersInArray(arr3).joinToString(", "))
+    print(medium.longestConsecutive(nums = arr3))
 }
