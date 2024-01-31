@@ -792,6 +792,38 @@ class Easy {
     }
 }
 
+fun rangePrinter(low: Int, high: Int){
+    for (num in low ..high) {
+        println(num)
+    }
+}
+
+fun tablePrinter(num: Int) {
+    for (i in 1 .. 10) {
+        println("$num * $i = ${num * i}")
+    }
+}
+
+/**Fun with no args and no return type*/
+fun funWithNoArgument() {
+    print("No Args!")
+}
+
+/**Fun with no args but return type*/
+fun funWithNoArgsButReturn(): Int {
+    return 0
+}
+
+/**Fun with  args & return type*/
+fun sumOfTwoNumbers(a: Int, b: Int): Int {
+    return a + b
+}
+
+/**Fun with  args but no return type*/
+fun funWithArgsButNoReturn(num1: Int, num2: Int): Int {
+    return num1 + num2
+}
+
 fun main() {
 
     val nums3 = mutableListOf(-1,1,2,3,1)
@@ -811,6 +843,11 @@ fun main() {
     val easy = Easy()
 //    easy.mergeSort(unsortedArray, 0, unsortedArray.size - 1)
 //    print(easy.searchRange(arr3, 6).joinToString(", "))
-    print(easy.maxProfit(arr5))
+//    print(easy.maxProfit(arr5))
+
+//    tablePrinter(8)
+//    print(funWithArgsButNoReturn(12, 23))
+//    print(0)
 }
+
 

@@ -2,6 +2,7 @@ package leetCodeSolutioning
 
 import algorithms.merge
 import striversA2ZDsa.list
+import striversA2ZDsa.mutableSet
 import techiniques.reverseArr
 
 class Medium {
@@ -386,6 +387,64 @@ class Medium {
         return maxCount
     }
 
+    fun setZeroes(matrix: Array<IntArray>): Unit {
+//        val zeroRows = mutableSetOf<Int>()
+//        val zeroCols = mutableSetOf<Int>()
+
+
+        var col0 = 1
+        for (i in matrix.indices) {
+            for (j in matrix[i].indices) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0
+                    if (j != 0) {
+                        matrix[0][j] = 0
+                    } else {
+                        col0 = 0
+                    }
+                }
+            }
+        }
+
+        for (i in 1..< matrix.size) {
+            for (j in 1 ..< matrix[i].size) {
+                if (matrix[i][j] != 0) {
+                    if (matrix[0][j] == 0 || matrix[i][0] == 0) {
+                        matrix[i][j] = 0
+                    }
+                }
+            }
+        }
+
+        if (matrix[0][0] == 0) {
+            for (j in matrix[0].indices) matrix[0][j] = 0
+        }
+        if (col0 == 0) {
+            for (i in matrix.indices) matrix[i][0] = 0
+        }
+
+        for (i in matrix.indices) {
+            for (j in matrix[i].indices) {
+                print(matrix[i][j])
+            }
+
+            println()
+        }
+
+//        for (row in zeroRows) {
+//            for (j in matrix[row].indices) {
+//                matrix[row][j] = 0
+//            }
+//        }
+//
+//        for (col in zeroCols) {
+//            for (i in matrix.indices) {
+//                matrix[i][col] = 0
+//            }
+//        }
+    }
+
+
 }
 
 fun main() {
@@ -397,7 +456,9 @@ fun main() {
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
     val s = "pwwkew"
     val medium = Medium()
+    val arr4 = arrayOf(intArrayOf(1,1,1), intArrayOf(1,0,1), intArrayOf(1,1,1))
+    val arr5 = arrayOf(intArrayOf(1,2,3,4), intArrayOf(5,0,7,8), intArrayOf(0,10,11,12), intArrayOf(13,14,15,0))
 //    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    print(medium.longestConsecutive(nums = arr3))
+    print(medium.setZeroes(arr5))
 }
