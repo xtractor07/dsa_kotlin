@@ -444,6 +444,23 @@ class Medium {
 //        }
     }
 
+    fun rotate(matrix: Array<IntArray>): Array<IntArray> {
+        val n = matrix.size
+        //Transpose the matrix
+        for (i in 0 until n) {
+            for (j in 0 until n) {
+                val temp = matrix[i][j]
+                matrix[i][j] = matrix[j][i]
+                matrix[j][i] = temp
+            }
+        }
+
+        for (row in matrix) {
+            row.reverse()
+        }
+
+        return matrix
+    }
 
 }
 
@@ -460,5 +477,11 @@ fun main() {
     val arr5 = arrayOf(intArrayOf(1,2,3,4), intArrayOf(5,0,7,8), intArrayOf(0,10,11,12), intArrayOf(13,14,15,0))
 //    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    print(medium.setZeroes(arr5))
+    val matrix1 = medium.rotate(arr5)
+    for (row in matrix) {
+        for (element in row) {
+            print("$element ")
+        }
+        println()
+    }
 }
