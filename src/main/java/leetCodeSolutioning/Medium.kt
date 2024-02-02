@@ -455,11 +455,30 @@ class Medium {
             }
         }
 
-        for (row in matrix) {
-            row.reverse()
+        for (i in 0 until n) {
+            for (j in 0 until n / 2) {
+                val temp = matrix[i][j]
+                matrix[i][j] = matrix[i][n - 1 - j]
+                matrix[i][n - 1 - j] = temp
+            }
         }
 
         return matrix
+    }
+
+    fun subarraySum(nums: IntArray, k: Int): Int {
+        var count = 0
+        var sum = 0
+        val sumFrequency = hashMapOf<Int, Int>()
+        sumFrequency[0] = 1
+
+        for (num in nums) {
+            sum += num
+            count += sumFrequency.getOrDefault(sum - k, 0)
+            sumFrequency[sum] = sumFrequency.getOrDefault(sum, 0) + 1
+        }
+
+        return count
     }
 
 }
@@ -475,13 +494,9 @@ fun main() {
     val medium = Medium()
     val arr4 = arrayOf(intArrayOf(1,1,1), intArrayOf(1,0,1), intArrayOf(1,1,1))
     val arr5 = arrayOf(intArrayOf(1,2,3,4), intArrayOf(5,0,7,8), intArrayOf(0,10,11,12), intArrayOf(13,14,15,0))
+    val arr6 = intArrayOf(3, 1, 2, 4)
 //    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
-    val matrix1 = medium.rotate(arr5)
-    for (row in matrix) {
-        for (element in row) {
-            print("$element ")
-        }
-        println()
-    }
+//    val matrix1 = medium.rotate(arr5)
+    print(medium.subarraySum(arr6, 6))
 }
