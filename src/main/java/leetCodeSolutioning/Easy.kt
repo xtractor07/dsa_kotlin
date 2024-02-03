@@ -790,38 +790,22 @@ class Easy {
 
         return maxSell
     }
-}
 
-fun rangePrinter(low: Int, high: Int){
-    for (num in low ..high) {
-        println(num)
+    fun nthPascalRow(row: Int): List<List<Int>> {
+        val pascalTriangle = mutableListOf<List<Int>>()
+        for (j in 1..row){
+            var ans = 1
+            val ansRow = mutableListOf<Int>()
+            ansRow.add(1)
+            for (i in 1..< j) {
+                ans *= (j - i)
+                ans /= i
+                ansRow.add(ans)
+            }
+            pascalTriangle.add(ansRow)
+        }
+        return pascalTriangle
     }
-}
-
-fun tablePrinter(num: Int) {
-    for (i in 1 .. 10) {
-        println("$num * $i = ${num * i}")
-    }
-}
-
-/**Fun with no args and no return type*/
-fun funWithNoArgument() {
-    print("No Args!")
-}
-
-/**Fun with no args but return type*/
-fun funWithNoArgsButReturn(): Int {
-    return 0
-}
-
-/**Fun with  args & return type*/
-fun sumOfTwoNumbers(a: Int, b: Int): Int {
-    return a + b
-}
-
-/**Fun with  args but no return type*/
-fun funWithArgsButNoReturn(num1: Int, num2: Int): Int {
-    return num1 + num2
 }
 
 fun main() {
@@ -847,7 +831,7 @@ fun main() {
 
 //    tablePrinter(8)
 //    print(funWithArgsButNoReturn(12, 23))
-//    print(0)
+    print(easy.nthPascalRow(6))
 }
 
 
