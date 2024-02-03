@@ -481,6 +481,40 @@ class Medium {
         return count
     }
 
+    fun spiralOrder(matrix: Array<IntArray>): List<Int> {
+        val answer = mutableListOf<Int>()
+        val n = matrix.size
+        val m = matrix[0].size
+        var top = 0
+        var left = 0
+        var right = m - 1
+        var bottom = n - 1
+
+        while (top <= bottom && left <= right){
+            for (idx in left..<right) {
+                answer.add(matrix[top][idx])
+            }
+            top++
+            for (idx in top..bottom) {
+                answer.add(matrix[idx][right])
+            }
+            right--
+            if (top <= bottom) {
+                for (idx in right downTo left) {
+                    answer.add(matrix[bottom][idx])
+                }
+                bottom --
+            }
+            if (left <= right) {
+                for (idx in bottom downTo top) {
+                    answer.add(matrix[idx][left])
+                }
+                left++
+            }
+        }
+        return answer
+    }
+
 }
 
 fun main() {
