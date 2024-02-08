@@ -515,13 +515,40 @@ class Medium {
         return answer
     }
 
+    //Better
+    fun majorityElement(nums: IntArray): List<Int> {
+        val resultMap = HashMap<Int, Int>()
+        var count = 0
+        for (num in nums) {
+            count = resultMap.getOrDefault(num, 0)
+            resultMap[num] = count + 1
+        }
+        return resultMap.filter { it.value > nums.size / 3 }.keys.toList()
+    }
+
+    //Optimal
+//    fun majorityOptimal(nums: IntArray): List<Int> {
+//        var element = Int.MIN_VALUE
+//        var count = 0
+//        for (num in nums) {
+//            if (count == 0) {
+//                element = num
+//                count = 1
+//            } else if (num == element) {
+//                count ++
+//            } else {
+//                count --
+//            }
+//        }
+//
+//    }
 }
 
 fun main() {
     val arr = intArrayOf(1, 2, 3, 4, 5, 7)
     var arr1: IntArray = (1..100).shuffled().toIntArray()
     var arr2 = intArrayOf(-2,1,-3,4,-1,2,1,-5,4)
-    var arr3 = intArrayOf(100,4,200,1,3,2)
+    var arr3 = intArrayOf(100,4,200,1,3,2, 1, 2)
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
     val s = "pwwkew"
@@ -532,5 +559,5 @@ fun main() {
 //    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
 //    val matrix1 = medium.rotate(arr5)
-    print(medium.subarraySum(arr6, 6))
+    print(medium.majorityElement(intArrayOf(1,2)))
 }
