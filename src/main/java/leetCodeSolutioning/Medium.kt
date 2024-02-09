@@ -527,21 +527,60 @@ class Medium {
     }
 
     //Optimal
-//    fun majorityOptimal(nums: IntArray): List<Int> {
-//        var element = Int.MIN_VALUE
-//        var count = 0
-//        for (num in nums) {
-//            if (count == 0) {
-//                element = num
-//                count = 1
-//            } else if (num == element) {
-//                count ++
-//            } else {
-//                count --
-//            }
-//        }
-//
-//    }
+    fun majorityOptimal(nums: IntArray): List<Int> {
+        var count1 = 0
+        var count2 = 0
+        var element1: Int? = null
+        var element2: Int? = null
+
+        for (num in nums) {
+            when {
+                element1 != null && num == element1 -> count1 ++
+                element2 != null && num == element2 -> count2 ++
+
+                count1 == 0 -> {
+                    element1 = num
+                    count1 = 1
+                }
+                count2 == 0 -> {
+                    element2 = num
+                    count2 = 1
+                }
+                else -> {
+                    count1 --
+                    count2 --
+                }
+            }
+        }
+
+        count1 = 0
+        count2 = 0
+
+        nums.forEach {
+            if (it == element1) count1 ++
+            if (it == element2) count2 ++
+        }
+
+        val result = mutableListOf<Int>()
+        if (count1 > nums.size / 3) element1?.let { result.add(it) }
+        if (count2 > nums.size / 3) element2?.let { result.add(it) }
+
+        return result
+    }
+
+    fun frequencySort(s: String): String {
+        val frequencyMap = HashMap<Char, Int>()
+        for (char in s) {
+            val count = frequencyMap.getOrDefault(char, 0)
+            frequencyMap[char] = count + 1
+        }
+        val descendingSort = frequencyMap.entries.sortedByDescending { it.value }
+        val result = StringBuilder()
+        for ((k, v) in descendingSort) {
+            result.append(k.toString().repeat(v))
+        }
+        return result.toString()
+    }
 }
 
 fun main() {
@@ -551,7 +590,7 @@ fun main() {
     var arr3 = intArrayOf(100,4,200,1,3,2, 1, 2)
     val matrix = arrayOf(intArrayOf(1, 3, 5, 7), intArrayOf(10, 11, 16, 20), intArrayOf(23, 30, 34, 60))
     val mat2 = arrayOf(intArrayOf(1), intArrayOf(3))
-    val s = "pwwkew"
+    val s = "trrreeee"
     val medium = Medium()
     val arr4 = arrayOf(intArrayOf(1,1,1), intArrayOf(1,0,1), intArrayOf(1,1,1))
     val arr5 = arrayOf(intArrayOf(1,2,3,4), intArrayOf(5,0,7,8), intArrayOf(0,10,11,12), intArrayOf(13,14,15,0))
@@ -559,5 +598,6 @@ fun main() {
 //    val arr3 = intArrayOf(2,7,11,15)
 //    medium.mergeSort(arr1, 0, arr1.size - 1)
 //    val matrix1 = medium.rotate(arr5)
-    print(medium.majorityElement(intArrayOf(1,2)))
+//    print(medium.majorityElement(intArrayOf(1,2)))
+    print(medium.frequencySort(s))
 }
